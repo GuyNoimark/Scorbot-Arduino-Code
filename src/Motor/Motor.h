@@ -10,14 +10,14 @@ class Motor {
   private:
     int powerPin;
     int dir1;
-    int dir2;
+    // int dir2;
     int encoder1;
     int encoder2;
     Encoder encoder;
 
     
   public:
-    Motor(int _powerPin, int _dir1, int _dir2, int _encoder1, int _encoder2);
+    Motor(int _powerPin, int _dir, int _encoder1, int _encoder2);
 
     void setPower(double power);
 
