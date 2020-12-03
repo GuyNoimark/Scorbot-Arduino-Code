@@ -17,6 +17,7 @@ class Motor {
 
     
   public:
+    Motor() : encoder(0, 1){}
     Motor(int _powerPin, int _dir, int _encoder1, int _encoder2);
 
     void setPower(double power);

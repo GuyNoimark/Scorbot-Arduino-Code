@@ -49,13 +49,13 @@ void Motor::joystickControl(double value)
   }
 }
 
-void Motor::buttonControl(int button1, int button2) {
+void Motor::buttonControl(int button1, int button2)
+{
   int power = button1 + button2;
   int direction = button1;
 
   setPower(power);
   setDir(direction);
-
 }
 
 long Motor::getPosition()

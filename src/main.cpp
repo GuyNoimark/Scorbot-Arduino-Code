@@ -5,14 +5,16 @@
 #include <Arduino.h>
 
 #include <Encoder.h>
-#include "Motor/Motor.h"
+#include <Motor/Motor.h>
 #include <lf310/lf310.h>
+#include <Gripper/Gripper.h>
 
 #include <SPI.h>
 
 Motor base(3, 22, 18, 19);
 Motor arm(2, 23, 18, 19);
 Motor arm2(4, 24, 18, 19);
+Gripper gripper(5, 6, 7, 40, 41, 42, 0, 0, 0, 0, 0, 0);
 
 USB Usb;
 LF310 gamepad(&Usb);
@@ -33,6 +35,11 @@ void setup()
     Usb.Init();
 }
 
+boolean up;
+boolean down;
+boolean left;
+boolean right;
+
 void loop()
 {
     Usb.Task();
@@ -42,4 +49,5 @@ void loop()
     base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
     arm.joystickControl(gamepad.lf310Data.Y);
     arm2.joystickControl(gamepad.lf310Data.Rz);
-}   
+    gripper.dPadControl(gamepad.lf310Data.btn.dPad);
+}
