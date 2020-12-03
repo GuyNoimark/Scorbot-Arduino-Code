@@ -10,8 +10,9 @@
 
 #include <SPI.h>
 
-// Motor arm(2, 23, 18, 19);
 Motor base(3, 22, 18, 19);
+Motor arm(2, 23, 18, 19);
+Motor arm2(4, 24, 18, 19);
 
 USB Usb;
 LF310 gamepad(&Usb);
@@ -39,4 +40,6 @@ void loop()
 
     //Controls the base movment of the robot
     base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
-}
+    arm.joystickControl(gamepad.lf310Data.Y);
+    arm2.joystickControl(gamepad.lf310Data.Rz);
+}   
