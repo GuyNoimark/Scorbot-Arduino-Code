@@ -25,6 +25,8 @@ class Motor {
 
     void joystickControl(double value);
 
+    void buttonControl(int button1, int button2);
+
     long getPosition();
 
     long setPosition(double wantedTicks);

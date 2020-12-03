@@ -14,7 +14,7 @@ USB Usb;
 LF310 lf310(&Usb);
 
 void setup() {
-        Serial.begin(115200);
+        Serial.begin(9600);
 #if !defined(__MIPSEL__)
         while (!Serial); // Wait for serial port to connect - used on Leonardo, Teensy and other boards with built-in USB CDC serial connection
 #endif
