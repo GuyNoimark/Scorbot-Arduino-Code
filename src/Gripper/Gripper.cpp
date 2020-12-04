@@ -52,6 +52,20 @@ void Gripper::dPadControl(uint8_t dPad)
     leftMotor.setDir(down - right);
 }
 
+void Gripper::clewState(bool buttonA, bool buttonB)
+{
+
+    clawMotor.setPower(buttonA + buttonB);
+    clawMotor.setDir(buttonA);
+    // if (buttonA)
+    // {
+    //     clawMotor.setDir(1);
+    // }else
+    // {
+    //    clawMotor.setDir(0);
+    // }
+    
+}
 // long Gripper::getPosition()
 // {
 //     return encoder.read();

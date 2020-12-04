@@ -25,6 +25,8 @@ class Gripper : public Motor {
 
     void dPadControl(uint8_t dPad);
 
+    void clewState(bool buttonA, bool buttonB);
+
     // void setGripperPosition(int roll, int pitch, boolean gipperState);
 
 

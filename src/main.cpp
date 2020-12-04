@@ -50,4 +50,5 @@ void loop()
     arm.joystickControl(gamepad.lf310Data.Y);
     arm2.joystickControl(gamepad.lf310Data.Rz);
     gripper.dPadControl(gamepad.lf310Data.btn.dPad);
+    gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
 }
