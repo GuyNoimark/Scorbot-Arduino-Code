@@ -32,20 +32,35 @@ void Motor::setDir(int dir)
   digitalWrite(dir1, dir);
 }
 
-void Motor::joystickControl(double value)
+void Motor::joystickControl(float value)
 {
+  float sensitivityFactor = 5;
+  float stuckFactor = 0.1;
+  float joystickCenterValue = 127.5;
+
   //  Serial.println(value);
-  if (value < 128)
+  if (value < joystickCenterValue - sensitivityFactor
+  )
   {
     setDir(1);
-    setPower(1 - value / 128);
-    //    Serial.println(1 - (value/128));
+    setPower(1 - value / joystickCenterValue);
+    Serial.print(value);
+    Serial.print("\t");
+    Serial.println(1 - value / joystickCenterValue);
+  }
+  else if (value > joystickCenterValue + sensitivityFactor
+  )
+  {
+    setDir(0);
+    setPower(value / joystickCenterValue - 1);
+    Serial.print(value);
+    Serial.print("\t");
+    Serial.println(value / joystickCenterValue - 1 - stuckFactor);
   }
   else
   {
     setDir(0);
-    setPower(value / 128 - 1);
-    Serial.println(value / 128 - 1);
+    setPower(0);
   }
 }
 

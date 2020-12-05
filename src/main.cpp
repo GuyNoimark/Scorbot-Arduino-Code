@@ -22,13 +22,6 @@ LF310 gamepad(&Usb);
 // const LF310Data joystick = controller.lf310Data;
 // const LF310DataButtons buttons = gamepad.buttonClickState;
 
-/*
-gamepad x = left x
-gamepad y = left y
-gamepad z = right x
-gamepad Rz = right y
-*/
-
 void setup()
 {
     Serial.begin(9600);
@@ -51,4 +44,5 @@ void loop()
     arm2.joystickControl(gamepad.lf310Data.Rz);
     gripper.dPadControl(gamepad.lf310Data.btn.dPad);
     gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
+    // Serial.println(gamepad.lf310Data.Y);
 }

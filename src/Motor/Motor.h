@@ -24,7 +24,7 @@ class Motor {
 
     void setDir(int dir);
 
-    void joystickControl(double value);
+    void joystickControl(float value);
 
     void buttonControl(int button1, int button2);
 

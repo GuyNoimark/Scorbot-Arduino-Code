@@ -56,11 +56,11 @@ void loop() {
           oldY = lf310.lf310Data.Y;
         }
 
-        if (lf310.lf310Data.Z != oldZ) {
-          Serial.print("Right Joystick X: ");
-          Serial.println(lf310.lf310Data.Z);
-          oldZ = lf310.lf310Data.Z;
-        }
+//        if (lf310.lf310Data.Z != oldZ) {
+//          Serial.print("Right Joystick X: ");
+//          Serial.println(lf310.lf310Data.Z);
+//          oldZ = lf310.lf310Data.Z;
+//        }
 
         if (lf310.lf310Data.Rz != oldRz) {
           Serial.print("Right Joystick Y: ");
