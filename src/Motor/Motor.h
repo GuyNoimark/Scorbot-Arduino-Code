@@ -4,35 +4,50 @@
 #include <Arduino.h>
 #include <Encoder.h>
 
-    
+class Motor
+{
+private:
+  int powerPin;
+  int dir1;
+  int encoder1;
+  int encoder2;
+  int encoderPosition;
+  float Kp;
+  float Ki;
+  float Kd;
+  float lastError = 0;
+  float lastTime = 0;
+  Encoder encoder;
 
-class Motor {
-  private:
-    int powerPin;
-    int dir1;
-    // int dir2;
-    int encoder1;
-    int encoder2;
-    Encoder encoder;
+public:
+  Motor() : encoder(0, 1) {}
+  Motor(
+      int _powerPin,
+      int _dir,
+      int _encoder1,
+      int _encoder2,
+      float Kp,
+      float Ki,
+      float Kd);
 
-    
-  public:
-    Motor() : encoder(0, 1){}
-    Motor(int _powerPin, int _dir, int _encoder1, int _encoder2);
+  void setPower(double power);
 
-    void setPower(double power);
+  void setDir(int dir);
 
-    void setDir(int dir);
+  void joystickControl(float value);
 
-    void joystickControl(float value);
+  void buttonControl(int button1, int button2);
 
-    void buttonControl(int button1, int button2);
+  long getPosition();
 
-    long getPosition();
+  long setPosition(double wantedTicks);
 
-    long setPosition(double wantedTicks);
+  void setPIDGains(
+      float Kp,
+      float Ki,
+      float Kd);
 
-    void resetEncoder();
+  void resetEncoder();
 };
 
 #endif

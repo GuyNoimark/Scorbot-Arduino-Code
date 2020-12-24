@@ -2,21 +2,30 @@
 #include <Arduino.h>
 #include <Encoder.h>
 
-//Encoder encoder(int temp1, int temp2);
-
-Motor::Motor(int _powerPin, int _dir, int _encoder1, int _encoder2) : encoder(_encoder1, _encoder2)
+Motor::Motor(
+    int _powerPin,
+    int _dir,
+    int _encoder1,
+    int _encoder2,
+    float Kp,
+    float Ki,
+    float Kd)
+    : encoder(_encoder1, _encoder2)
 {
   this->powerPin = _powerPin;
   this->dir1 = _dir;
-  // this->dir2 = _dir2;
   this->encoder1 = _encoder1;
   this->encoder2 = _encoder2;
+  this->Kp = Kp;
+  this->Ki = Ki;
+  this->Kd = Kd;
 
   pinMode(powerPin, OUTPUT);
   pinMode(dir1, OUTPUT);
   // pinMode(dir2, OUTPUT);
   pinMode(encoder1, INPUT_PULLUP);
   pinMode(encoder2, INPUT_PULLUP);
+  // pid.SetMode();
 }
 
 void Motor::setPower(double power)
@@ -38,24 +47,15 @@ void Motor::joystickControl(float value)
   float stuckFactor = 0.1;
   float joystickCenterValue = 127.5;
 
-  //  Serial.println(value);
-  if (value < joystickCenterValue - sensitivityFactor
-  )
+  if (value < joystickCenterValue - sensitivityFactor)
   {
     setDir(1);
     setPower(1 - value / joystickCenterValue);
-    Serial.print(value);
-    Serial.print("\t");
-    Serial.println(1 - value / joystickCenterValue);
   }
-  else if (value > joystickCenterValue + sensitivityFactor
-  )
+  else if (value > joystickCenterValue + sensitivityFactor)
   {
     setDir(0);
     setPower(value / joystickCenterValue - 1);
-    Serial.print(value);
-    Serial.print("\t");
-    Serial.println(value / joystickCenterValue - 1 - stuckFactor);
   }
   else
   {
@@ -75,37 +75,39 @@ void Motor::buttonControl(int button1, int button2)
 
 long Motor::getPosition()
 {
-  return encoder.read();
+  encoderPosition = encoder.read();
+  return encoderPosition;
 }
 
 long Motor::setPosition(double wantedTicks)
 {
+  float error = wantedTicks - float(getPosition());
+  long time = millis();
 
-  double kp = 0.05;
-  double ki = 1;
-  double kd = 1;
-  double error;
-  double speedFactor;
-  double basePower = 0.5;
-
-  error = wantedTicks - float(getPosition());
-
-  //  speedFactor = error;
-  //  Serial.print(255 - error * kp);
-  //  Serial.print("\t");
+  //last used Kp = 0.05
 
   Serial.println(error);
-  if (error > 0)
-  {
-    setDir(1);
-  }
-  else
-  {
-    setDir(0);
-  }
+  setDir(error > 0);
+  // if (error > 0)
+  // {
+  //   setDir(1);
+  // }
+  // else
+  // {
+  //   setDir(0);
+  // }
 
   //  setPower(110);
-  setPower(kp * error);
+  setPower(Kp * error + Kd * (error - lastError) / (time - lastTime));
+  lastError = error;
+  lastTime = time;
+}
+
+void Motor::setPIDGains(
+    float Kp,
+    float Ki,
+    float Kd)
+{
 }
 
 void Motor::resetEncoder()
