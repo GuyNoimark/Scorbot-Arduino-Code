@@ -13,7 +13,7 @@ Motor::Motor(
     : encoder(_encoder1, _encoder2)
 {
   this->powerPin = _powerPin;
-  this->dir = _dir;
+  this->direction = _dir;
   this->encoder1 = _encoder1;
   this->encoder2 = _encoder2;
   this->Kp = Kp;
@@ -21,7 +21,7 @@ Motor::Motor(
   this->Kd = Kd;
 
   pinMode(powerPin, OUTPUT);
-  pinMode(dir, OUTPUT);
+  pinMode(direction, OUTPUT);
   // pinMode(dir2, OUTPUT);
   pinMode(encoder1, INPUT_PULLUP);
   pinMode(encoder2, INPUT_PULLUP);
@@ -38,7 +38,7 @@ void Motor::setDir(int dir)
 {
   // digitalWrite(dir1, 1 - dir);
   // digitalWrite(dir2, dir);
-  digitalWrite(dir, dir);
+  digitalWrite(direction, dir);
 }
 
 void Motor::joystickControl(float value)
@@ -47,6 +47,7 @@ void Motor::joystickControl(float value)
   float stuckFactor = 0.1;
   float joystickCenterValue = 127.5;
 
+  
   if (value < joystickCenterValue - sensitivityFactor)
   {
     setDir(1);
@@ -67,10 +68,10 @@ void Motor::joystickControl(float value)
 void Motor::buttonControl(int button1, int button2)
 {
   int power = button1 + button2;
-  int direction = button1;
+  int dir = button1;
 
   setPower(power);
-  setDir(direction);
+  setDir(button1);
 }
 
 long Motor::getPosition()

@@ -8,7 +8,7 @@ class Motor
 {
 private:
   int powerPin;
-  int dir;
+  int direction;
   int encoder1;
   int encoder2;
   int encoderPosition;

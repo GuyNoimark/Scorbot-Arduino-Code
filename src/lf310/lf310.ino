@@ -43,7 +43,6 @@ void loop() {
  
     Usb.Task();
     if (lf310.connected()) {
-
         if (lf310.lf310Data.X != oldX) {
           Serial.print("Left Joystick X: ");
           Serial.println(lf310.lf310Data.X);
