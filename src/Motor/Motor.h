@@ -8,7 +8,7 @@ class Motor
 {
 private:
   int powerPin;
-  int direction;
+  int directionPin;
   int encoder1;
   int encoder2;
   int encoderPosition;
@@ -40,7 +40,7 @@ public:
 
   long getPosition();
 
-  long setPosition(double wantedTicks);
+  void setPosition(double wantedTicks);
 
   void setPIDGains(
       float Kp,
