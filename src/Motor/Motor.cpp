@@ -1,6 +1,7 @@
 #include "Motor.h"
 #include <Arduino.h>
 #include <Encoder.h>
+#include <time.h>
 
 Motor::Motor(
     int _powerPin,
@@ -44,7 +45,7 @@ void Motor::joystickControl(float value)
   // float stuckFactor = 0.1;
   float joystickCenterValue = 127.5;
 
-    if (value < joystickCenterValue - sensitivityFactor)
+  if (value < joystickCenterValue - sensitivityFactor)
   {
     setDir(1);
     setPower(1 - value / joystickCenterValue);
@@ -68,6 +69,22 @@ void Motor::buttonControl(int button1, int button2)
 
   setPower(power);
   setDir(dir);
+}
+
+void Motor::moveByTime(double timeLimit, double power, int dir)
+{
+  long currentTime = millis();
+
+  if (currentTime < timeLimit * 1000)
+  {
+    setPower(power);
+    setDir(dir);
+  }else {
+    setPower(0);
+    setDir(dir);
+  }
+
+  // lastTimeMillis = currentTime;
 }
 
 long Motor::getPosition()

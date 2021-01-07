@@ -23,26 +23,26 @@ Motor base(
     encoderP0Pins[0],
     encoderP1Pins[0], 0, 0, 0);
 Motor arm(
-    motorPwmPins[1], 
-    directionPins[1], 
-    encoderP0Pins[1], 
+    motorPwmPins[1],
+    directionPins[1],
+    encoderP0Pins[1],
     encoderP1Pins[1], 0, 0, 0);
 Motor arm2(
-    motorPwmPins[2], 
-    directionPins[2], 
-    encoderP0Pins[2], 
+    motorPwmPins[2],
+    directionPins[2],
+    encoderP0Pins[2],
     encoderP1Pins[2], 0, 0, 0);
 Gripper gripper(
-    motorPwmPins[3], 
-    motorPwmPins[4], 
-    motorPwmPins[5], 
-    directionPins[3], 
-    directionPins[4], 
-    directionPins[5], 
-    encoderP0Pins[3], 
-    encoderP0Pins[4], 
-    encoderP0Pins[5], 
-    encoderP1Pins[3], 
+    motorPwmPins[3],
+    motorPwmPins[4],
+    motorPwmPins[5],
+    directionPins[3],
+    directionPins[4],
+    directionPins[5],
+    encoderP0Pins[3],
+    encoderP0Pins[4],
+    encoderP0Pins[5],
+    encoderP1Pins[3],
     encoderP1Pins[4],
     encoderP1Pins[5]);
 
@@ -76,10 +76,25 @@ void loop()
     // base.joystickControl(gamepad.lf310Data.X);
 
     // Controls the base movment of the robot
-    base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
-    arm.joystickControl(gamepad.lf310Data.Y);
-    arm2.joystickControl(gamepad.lf310Data.Rz);
-    gripper.dPadControl(gamepad.lf310Data.btn.dPad);
-    gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
-    // Serial.println(digitalRead(46));
+
+    Serial.println(gamepad.buttonClickState.Xbutton);
+
+    // base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
+    // arm.joystickControl(gamepad.lf310Data.Y);
+    // arm2.joystickControl(gamepad.lf310Data.Rz);
+    // gripper.dPadControl(gamepad.lf310Data.btn.dPad);
+    // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
+
+    //base 0 - left
+    //arm 0 - down
+    //arm2 0 - down
+    //gripper pitch 0 - up
+    //gripper roll 0 - right
+    //gripper claw 0 - open
+
+    base.moveByTime(5, 0.3, 0);
+    arm.moveByTime(4.8, 1, 0);
+    arm2.moveByTime(5, 0.5, 1);
+    gripper.moveByTime(5, 0.1, 1, "pitch");
+    gripper.moveByTime(5, 0.2, 0, "claw");
 }

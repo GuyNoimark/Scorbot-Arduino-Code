@@ -17,6 +17,7 @@ private:
   float Kd;
   float lastError = 0;
   float lastTime = 0;
+  long currentTime = 0;
   Encoder encoder;
 
 public:
@@ -37,6 +38,8 @@ public:
   void joystickControl(float value);
 
   void buttonControl(int button1, int button2);
+
+  void moveByTime(double timeLimit, double power, int dir);
 
   long getPosition();
 

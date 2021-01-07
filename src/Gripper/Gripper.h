@@ -27,6 +27,8 @@ class Gripper : public Motor {
 
     void clewState(bool buttonA, bool buttonB);
 
+    void moveByTime(double timeLimit, double power, bool dir, String axis);
+
     // void setGripperPosition(int roll, int pitch, boolean gipperState);
 
 

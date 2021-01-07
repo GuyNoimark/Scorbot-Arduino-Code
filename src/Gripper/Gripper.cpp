@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <Encoder.h>
 #include <lf310/lf310.h>
+#include <time.h>
 
 //Encoder encoder(int temp1, int temp2);
 
@@ -57,6 +58,41 @@ void Gripper::clewState(bool buttonA, bool buttonB)
 
     clawMotor.setPower(buttonA + buttonB);
     clawMotor.setDir(buttonA);
+}
+
+void Gripper::moveByTime(double timeLimit, double power, bool dir, String axis)
+{
+    long currentTime = millis();
+
+    if (currentTime < timeLimit * 1000)
+    {
+        if (axis.equalsIgnoreCase("pitch"))
+        {
+            rightMotor.setPower(power);
+            leftMotor.setPower(power);
+            rightMotor.setDir(dir);
+            leftMotor.setDir(dir);
+        }else if (axis.equalsIgnoreCase("roll"))
+        {
+            rightMotor.setPower(power);
+            leftMotor.setPower(power);
+            rightMotor.setDir(dir);
+            leftMotor.setDir(1 - dir);
+        }else {
+            clawMotor.setPower(power);
+            clawMotor.setDir(dir);
+        }
+        
+    }
+    else
+    {
+        rightMotor.setPower(0);
+        leftMotor.setPower(0);
+        clawMotor.setPower(0);
+        rightMotor.setDir(0);
+        leftMotor.setDir(0);
+        clawMotor.setDir(0);
+    }
 }
 
 // long Gripper::getPosition()
