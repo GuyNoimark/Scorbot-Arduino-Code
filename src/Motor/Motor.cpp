@@ -79,7 +79,9 @@ void Motor::moveByTime(double timeLimit, double power, int dir)
   {
     setPower(power);
     setDir(dir);
-  }else {
+  }
+  else
+  {
     setPower(0);
     setDir(dir);
   }
