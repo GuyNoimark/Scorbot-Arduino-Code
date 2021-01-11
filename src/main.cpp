@@ -8,6 +8,7 @@
 #include <Motor/Motor.h>
 #include <lf310/lf310.h>
 #include <Gripper/Gripper.h>
+#include <InverseKinematics/InverseKinematics.h>
 
 #include <SPI.h>
 
@@ -48,6 +49,7 @@ Gripper gripper(
 
 USB Usb;
 LF310 gamepad(&Usb);
+InverseKinematics inverseKinematics;
 
 // const LF310Data joystick = controller.lf310Data;
 // const LF310DataButtons buttons = gamepad.buttonClickState;
@@ -84,6 +86,9 @@ void loop()
     // arm2.joystickControl(gamepad.lf310Data.Rz);
     // gripper.dPadControl(gamepad.lf310Data.btn.dPad);
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
+
+    inverseKinematics.calcAngles(50, 50, 50 , 0);
+    inverseKinematics.getAngle(0);
 
     //base 0 - left
     //arm 0 - down
