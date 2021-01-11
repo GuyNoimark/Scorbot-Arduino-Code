@@ -102,7 +102,7 @@ void Motor::setPosition(double wantedTicks)
 
   //last used Kp = 0.05
 
-  Serial.println(error);
+  // Serial.println(error);
   setDir(error > 0);
   // if (error > 0)
   // {

@@ -70,33 +70,32 @@ void loop()
 {
     Usb.Task();
 
-    if (!gamepad.connected())
-    {
-        Serial.println("Gamepad not connected!");
-    }
+    //* prints if the gamepad connected 
+    // if (!gamepad.connected())
+    // {
+    //     Serial.println("Gamepad not connected!");
+    // }
 
-    // base.joystickControl(gamepad.lf310Data.X);
 
-    // Controls the base movment of the robot
-
-    Serial.println(gamepad.buttonClickState.Xbutton);
-
+    //* Controls the base movement of the robot
     // base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
     // arm.joystickControl(gamepad.lf310Data.Y);
     // arm2.joystickControl(gamepad.lf310Data.Rz);
     // gripper.dPadControl(gamepad.lf310Data.btn.dPad);
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
 
-    inverseKinematics.calcAngles(50, 50, 50 , 0);
-    inverseKinematics.getAngle(0);
+    inverseKinematics.calcAngles(40, 0, 0 , 45);
+    Serial.println(inverseKinematics.getAngle(0), 10);
 
+    //* Direction dictionary 
     //base 0 - left
-    //arm 0 - down
+    //arm 0 - downF
     //arm2 0 - down
     //gripper pitch 0 - up
     //gripper roll 0 - right
     //gripper claw 0 - open
 
+    //* Time control robot
     base.moveByTime(5, 0.3, 0);
     arm.moveByTime(4.8, 1, 0);
     arm2.moveByTime(5, 0.5, 1);

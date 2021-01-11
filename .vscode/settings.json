@@ -1,4 +1,9 @@
 {
     "C_Cpp.dimInactiveRegions": false,
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "cSpell.words": [
+        "Bbutton",
+        "Tbutton",
+        "Xbutton"
+    ]
 }

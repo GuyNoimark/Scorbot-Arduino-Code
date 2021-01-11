@@ -6,18 +6,18 @@
 class InverseKinematics
 {
 private:
-  double armLength1 = 22.5;
-  double armLength2 = 22.5;
-  double gripperLength = 13.5;
-  double angles[];
+  float armLength1 = 22.2;
+  float armLength2 = 22.2;
+  float gripperLength = 13.5;
+  float angles[3];
 
 
 public:
   InverseKinematics();
 
-  void calcAngles(double x, double y, double z, double gripperAngle);
+  void calcAngles(float x, float y, float z, float gripperAngle);
 
-  double getAngle(int angle);
+  float getAngle(int angle);
 
 };
 

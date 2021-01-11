@@ -114,7 +114,7 @@ void Gripper::moveByTime(double timeLimit, double power, bool dir, String axis)
 
 //     //  speedFactor = error;
 //     //  Serial.print(255 - error * kp);
-//     //  Serial.print("\t");
+//    //  Serial.print("\t");
 
 //     Serial.println(error);
 //     if (error > 0)
