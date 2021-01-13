@@ -70,12 +70,11 @@ void loop()
 {
     Usb.Task();
 
-    //* prints if the gamepad connected 
+    //* prints if the gamepad connected
     // if (!gamepad.connected())
     // {
     //     Serial.println("Gamepad not connected!");
     // }
-
 
     //* Controls the base movement of the robot
     // base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
@@ -84,10 +83,9 @@ void loop()
     // gripper.dPadControl(gamepad.lf310Data.btn.dPad);
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
 
-    inverseKinematics.calcAngles(40, 0, 0 , 45);
-    Serial.println(inverseKinematics.getAngle(0), 10);
+    inverseKinematics.calcAngles(30, 25, 0, 0);
 
-    //* Direction dictionary 
+    //* Direction dictionary
     //base 0 - left
     //arm 0 - downF
     //arm2 0 - down
