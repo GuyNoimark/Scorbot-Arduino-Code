@@ -25,10 +25,6 @@ void InverseKinematics::calcAngles(float x, float y, float z, float gripperAngle
 
   float x2 = x - gripperLength * cos(degreesToRadians(gripperAngle));
   float y2 = y - gripperLength * sin(degreesToRadians(gripperAngle));
-  // Serial.print(x2);
-  // Serial.print(", ");
-  // Serial.println(y2);
-
   float distanceToGripper = sqrt(square(x2) + square(y2));
 
   if (distanceToGripper > armLength1 + armLength2)
@@ -36,13 +32,9 @@ void InverseKinematics::calcAngles(float x, float y, float z, float gripperAngle
     errorMessage("x, y coordinates out of range");
     return;
   }
-  // Serial.println(distanceToGripper, 10);
 
   float alpha = acos((square(armLength1) - square(distanceToGripper) - square(armLength2)) / (-2 * distanceToGripper * armLength1));
   float beta = atan(y2 / x2);
-  // Serial.print(alpha, 10);
-  // Serial.print(", ");
-  // Serial.println(beta, 10);
 
   //TODO: add arm angles limitations
   // Axis 1: Base Rotation  310°

@@ -30,12 +30,15 @@ Motor::Motor(
 void Motor::setPower(double power)
 {
   double mappedNumber = abs(power * 255);
+  if (mappedNumber > 255)
+  {
+    mappedNumber = 255;
+  }
   analogWrite(powerPin, mappedNumber);
 }
 
 void Motor::setDir(int dir)
 {
-
   digitalWrite(directionPin, dir);
 }
 
@@ -66,7 +69,7 @@ void Motor::buttonControl(int button1, int button2)
 {
   int power = button1 + button2;
   int dir = button1;
-
+  Serial.println(dir);
   setPower(power);
   setDir(dir);
 }
@@ -95,28 +98,38 @@ long Motor::getPosition()
   return encoderPosition;
 }
 
-void Motor::setPosition(double wantedTicks)
+void Motor::setPosition(float wantedTicks)
 {
+  float torcLimit = 0.14;
+  float startDeclarationTicks = 300;
+  // float error = wantedTicks - float(getPosition());
   float error = wantedTicks - float(getPosition());
-  long time = millis();
-
+  // long time = millis();
   //last used Kp = 0.05
 
-  // Serial.println(error);
-  setDir(error > 0);
-  // if (error > 0)
-  // {
-  //   setDir(1);
-  // }
-  // else
-  // {
-  //   setDir(0);
-  // }
+  // Serial.print(i);
+  // Serial.print("\t");
 
-  //  setPower(110);
-  setPower(Kp * error + Kd * (error - lastError) / (time - lastTime));
-  lastError = error;
-  lastTime = time;
+  setDir(error < 0);
+
+  float prop = Kp * (abs(error) / startDeclarationTicks + torcLimit);
+
+  Serial.print(error);
+  Serial.print("\t");
+  Serial.println(prop);
+  if (abs(error) > 5)
+  {
+    setPower(prop);
+  }
+  else
+  {
+    setPower(0);
+  }
+
+  // + Kd * (error - lastError) / (time - lastTime)
+  // lastError = error;
+  // lastTime = time;
+  i += 1;
 }
 
 void Motor::setPIDGains(

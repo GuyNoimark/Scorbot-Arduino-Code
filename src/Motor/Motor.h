@@ -19,6 +19,7 @@ private:
   float lastTime = 0;
   long currentTime = 0;
   Encoder encoder;
+  int i = 0;
 
 public:
   Motor() : encoder(0, 1) {}
@@ -43,7 +44,7 @@ public:
 
   long getPosition();
 
-  void setPosition(double wantedTicks);
+  void setPosition(float wantedTicks);
 
   void setPIDGains(
       float Kp,
