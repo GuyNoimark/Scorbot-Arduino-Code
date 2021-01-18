@@ -94,9 +94,6 @@ long Motor::getPosition()
 
 void Motor::setPosition(float wantedTicks)
 {
-  float torcLimit = 0.14;
-  float startDecelerationTicks = 150;
-
   float error = wantedTicks - float(getPosition());
 
   setDir(error < 0);
@@ -106,7 +103,7 @@ void Motor::setPosition(float wantedTicks)
   Serial.print(abs(error));
   Serial.print("\t");
   Serial.println(prop);
-  if (abs(error) > 5)
+  if (abs(error) > errorThreshold)
   {
     setPower(prop);
   }
@@ -119,4 +116,11 @@ void Motor::setPosition(float wantedTicks)
 void Motor::resetEncoder()
 {
   encoder.write(0);
+}
+
+void Motor::configControlVariables(float _startDecelerationTicks, float _torcLimit, int _errorThreshold)
+{
+  this->startDecelerationTicks = _startDecelerationTicks;
+  this->torcLimit = _torcLimit;
+  this->errorThreshold = _errorThreshold;
 }

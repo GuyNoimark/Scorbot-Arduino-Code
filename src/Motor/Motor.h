@@ -12,6 +12,9 @@ private:
   int encoder1;
   int encoder2;
   int encoderPosition;
+  float torcLimit = 0.15;
+  float startDecelerationTicks = 300;
+  int errorThreshold = 5;
   long currentTime = 0;
   Encoder encoder;
 
@@ -39,7 +42,7 @@ public:
 
   void resetEncoder();
 
-  // void configControlVariables();
+  void configControlVariables(float _startDecelerationTicks, float _torcLimit, int _errorThreshold);
 };
 
 #endif

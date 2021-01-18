@@ -80,8 +80,8 @@ void loop()
     // gripper.dPadControl(gamepad.lf310Data.btn.dPad);
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
-
-    base.setPosition(90 * 42);
+    base.configControlVariables(150, 0.14, 5);
+    base.setPosition(-90 * 42);
     // base.setPosition(-600);
 
     // base.moveByTime(3, 0, 0);
