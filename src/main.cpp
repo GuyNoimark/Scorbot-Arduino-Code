@@ -24,17 +24,17 @@ Motor base(
     directionPins[0],
     // encoderP0Pins[0],
     // encoderP1Pins[0],
-    21, 25, 1, 0, 0);
+    21, 25);
 Motor arm(
     motorPwmPins[1],
     directionPins[1],
     encoderP0Pins[1],
-    encoderP1Pins[1], 0, 0, 0);
+    encoderP1Pins[1]);
 Motor arm2(
     motorPwmPins[2],
     directionPins[2],
     encoderP0Pins[2],
-    encoderP1Pins[2], 0, 0, 0);
+    encoderP1Pins[2]);
 Gripper gripper(
     motorPwmPins[3],
     motorPwmPins[4],
@@ -62,11 +62,6 @@ void setup()
     Usb.Init();
 }
 
-boolean up;
-boolean down;
-boolean left;
-boolean right;
-
 void loop()
 {
     Usb.Task();
@@ -86,7 +81,8 @@ void loop()
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
 
-    base.setPosition(-90 * 42);
+    base.setPosition(90 * 42);
+    // base.setPosition(-600);
 
     // base.moveByTime(3, 0, 0);
 

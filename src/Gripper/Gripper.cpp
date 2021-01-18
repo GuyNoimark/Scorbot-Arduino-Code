@@ -8,13 +8,10 @@
 //Encoder encoder(int temp1, int temp2);
 
 Gripper::Gripper(int _powerPinA, int _powerPinB, int _powerPinC, int _dirA, int _dirB, int _dirC, int _encoder1A, int _encoder2A, int _encoder1B, int _encoder2B, int _encoder1C, int _encoder2C)
-    : rightMotor(_powerPinA, _dirA, _encoder1A, _encoder2A, 0, 0, 0),
-      leftMotor(_powerPinB, _dirB, _encoder1B, _encoder2B, 0, 0, 0),
-      clawMotor(_powerPinC, _dirC, _encoder1C, _encoder2C, 0, 0, 0)
+    : rightMotor(_powerPinA, _dirA, _encoder1A, _encoder2A),
+      leftMotor(_powerPinB, _dirB, _encoder1B, _encoder2B),
+      clawMotor(_powerPinC, _dirC, _encoder1C, _encoder2C)
 {
-    // Motor right(_powerPinA, _dirA, _encoder1A, _encoder2A);
-    // Motor left(_powerPinB, _dirB, _encoder1B, _encoder2B);
-    // Motor claw(_powerPinC, _dirC, _encoder1C, _encoder2C);
 }
 
 void Gripper::dPadControl(uint8_t dPad)
@@ -72,17 +69,19 @@ void Gripper::moveByTime(double timeLimit, double power, bool dir, String axis)
             leftMotor.setPower(power);
             rightMotor.setDir(dir);
             leftMotor.setDir(dir);
-        }else if (axis.equalsIgnoreCase("roll"))
+        }
+        else if (axis.equalsIgnoreCase("roll"))
         {
             rightMotor.setPower(power);
             leftMotor.setPower(power);
             rightMotor.setDir(dir);
             leftMotor.setDir(1 - dir);
-        }else {
+        }
+        else
+        {
             clawMotor.setPower(power);
             clawMotor.setDir(dir);
         }
-        
     }
     else
     {

@@ -7,19 +7,13 @@ Motor::Motor(
     int _powerPin,
     int _dir,
     int _encoder1,
-    int _encoder2,
-    float Kp,
-    float Ki,
-    float Kd)
+    int _encoder2)
     : encoder(_encoder1, _encoder2)
 {
   this->powerPin = _powerPin;
   this->directionPin = _dir;
   this->encoder1 = _encoder1;
   this->encoder2 = _encoder2;
-  this->Kp = Kp;
-  this->Ki = Ki;
-  this->Kd = Kd;
 
   pinMode(powerPin, OUTPUT);
   pinMode(directionPin, OUTPUT);
@@ -101,20 +95,15 @@ long Motor::getPosition()
 void Motor::setPosition(float wantedTicks)
 {
   float torcLimit = 0.14;
-  float startDeclarationTicks = 300;
-  // float error = wantedTicks - float(getPosition());
-  float error = wantedTicks - float(getPosition());
-  // long time = millis();
-  //last used Kp = 0.05
+  float startDecelerationTicks = 150;
 
-  // Serial.print(i);
-  // Serial.print("\t");
+  float error = wantedTicks - float(getPosition());
 
   setDir(error < 0);
 
-  float prop = Kp * (abs(error) / startDeclarationTicks + torcLimit);
+  float prop = abs(error) / startDecelerationTicks + torcLimit;
 
-  Serial.print(error);
+  Serial.print(abs(error));
   Serial.print("\t");
   Serial.println(prop);
   if (abs(error) > 5)
@@ -125,22 +114,9 @@ void Motor::setPosition(float wantedTicks)
   {
     setPower(0);
   }
-
-  // + Kd * (error - lastError) / (time - lastTime)
-  // lastError = error;
-  // lastTime = time;
-  i += 1;
-}
-
-void Motor::setPIDGains(
-    float Kp,
-    float Ki,
-    float Kd)
-{
 }
 
 void Motor::resetEncoder()
 {
-
   encoder.write(0);
 }
