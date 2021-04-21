@@ -16,15 +16,14 @@
 int motorPwmPins[6] = {7, 6, 5, 4, 3, 2};
 // int directionPins[6] = {14, 15, 16, 17, 18, 19};
 int directionPins[6] = {54, 55, 56, 57, 58, 59};
-int encoderP0Pins[6] = {22, 24, 26, 28, 30, 32};
-int encoderP1Pins[6] = {23, 25, 27, 29, 31, 33};
+int encoderP0Pins[6] = {20, 24, 26, 28, 30, 32};
+int encoderP1Pins[6] = {21, 25, 27, 29, 31, 33};
 
 Motor base(
     motorPwmPins[0],
     directionPins[0],
-    // encoderP0Pins[0],
-    // encoderP1Pins[0],
-    21, 25);
+    encoderP0Pins[0],
+    encoderP1Pins[0]);
 Motor arm(
     motorPwmPins[1],
     directionPins[1],
@@ -66,22 +65,25 @@ void loop()
 {
     Usb.Task();
 
-    //* prints if the gamepad connected
-    // if (!gamepad.connected())
-    // {
-    //     Serial.println("Gamepad not connected!");
-    // }
+    // * prints if the gamepad connected
+    if (!gamepad.connected())
+    {
+        Serial.println("Gamepad not connected!");
+    }
 
     // Controls the base movement of the robot
 
     // base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
+    // //base.joystickControl(gamepad.lf310Data.X);
     // arm.joystickControl(gamepad.lf310Data.Y);
     // arm2.joystickControl(gamepad.lf310Data.Rz);
     // gripper.dPadControl(gamepad.lf310Data.btn.dPad);
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
     // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
+    
     base.configControlVariables(150, 0.14, 5);
-    base.setPosition(-90 * 42);
+    base.setPosition(90 * 42);
+
     // base.setPosition(-600);
 
     // base.moveByTime(3, 0, 0);

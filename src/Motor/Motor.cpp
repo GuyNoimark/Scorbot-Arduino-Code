@@ -63,7 +63,7 @@ void Motor::buttonControl(int button1, int button2)
 {
   int power = button1 + button2;
   int dir = button1;
-  Serial.println(dir);
+  // Serial.println(dir);
   setPower(power);
   setDir(dir);
 }
@@ -95,8 +95,7 @@ long Motor::getPosition()
 void Motor::setPosition(float wantedTicks)
 {
   float error = wantedTicks - float(getPosition());
-
-  setDir(error < 0);
+  Serial.println(error);
 
   float prop = abs(error) / startDecelerationTicks + torcLimit;
 
