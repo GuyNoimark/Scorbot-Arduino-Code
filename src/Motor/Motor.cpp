@@ -95,13 +95,13 @@ long Motor::getPosition()
 void Motor::setPosition(float wantedTicks)
 {
   float error = wantedTicks - float(getPosition());
-  Serial.println(error);
+  // Serial.println(error);
 
   float prop = abs(error) / startDecelerationTicks + torcLimit;
 
-  Serial.print(abs(error));
-  Serial.print("\t");
-  Serial.println(prop);
+  // Serial.print(abs(error));
+  // Serial.print("\t");
+  // Serial.println(prop);
   if (abs(error) > errorThreshold)
   {
     setPower(prop);

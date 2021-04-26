@@ -52,6 +52,11 @@ USB Usb;
 LF310 gamepad(&Usb);
 InverseKinematics IK;
 
+bool activateAuto = false;
+int angle = 45;
+
+
+
 // const LF310Data joystick = controller.lf310Data;
 // const LF310DataButtons buttons = gamepad.buttonClickState;
 
@@ -71,18 +76,38 @@ void loop()
         Serial.println("Gamepad not connected!");
     }
 
+    Serial.println(activateAuto);
+
+    if(gamepad.lf310Data.btn.RBbutton) {
+        activateAuto = true;
+    }
+
+    if (activateAuto)
+    {
+        base.configControlVariables(150, 0.14, 5);
+        base.setPosition(angle * 42);
+
+        if (base.getPosition() >= (angle-5) * 42 &&
+            base.getPosition() <= (angle+5) * 42 ){
+            activateAuto = false;
+        }
+
+    }
+    else
+    {
+        base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
+        //base.joystickControl(gamepad.lf310Data.X);
+        arm.joystickControl(gamepad.lf310Data.Y);
+        arm2.joystickControl(gamepad.lf310Data.Rz);
+        gripper.dPadControl(gamepad.lf310Data.btn.dPad);
+        gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
+        gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
+    }
+
     // Controls the base movement of the robot
 
-    // base.buttonControl(gamepad.buttonClickState.RTbutton, gamepad.buttonClickState.LTbutton);
-    // //base.joystickControl(gamepad.lf310Data.X);
-    // arm.joystickControl(gamepad.lf310Data.Y);
-    // arm2.joystickControl(gamepad.lf310Data.Rz);
-    // gripper.dPadControl(gamepad.lf310Data.btn.dPad);
-    // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
-    // gripper.clewState(gamepad.buttonClickState.Abutton, gamepad.buttonClickState.Bbutton);
-    
-    base.configControlVariables(150, 0.14, 5);
-    base.setPosition(90 * 42);
+    // base.configControlVariables(150, 0.14, 5);
+    // base.setPosition(45 * 42);
 
     // base.setPosition(-600);
 
