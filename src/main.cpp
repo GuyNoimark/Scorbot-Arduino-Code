@@ -53,9 +53,8 @@ LF310 gamepad(&Usb);
 InverseKinematics IK;
 
 bool activateAuto = false;
-int angle = 45;
-
-
+int angle = 0;
+long lastPosition;
 
 // const LF310Data joystick = controller.lf310Data;
 // const LF310DataButtons buttons = gamepad.buttonClickState;
@@ -68,6 +67,11 @@ void setup()
 
 void loop()
 {
+
+    Serial.print(activateAuto);
+    Serial.print('\t');
+    Serial.println(base.getPosition() / 42);
+
     Usb.Task();
 
     // * prints if the gamepad connected
@@ -76,22 +80,25 @@ void loop()
         Serial.println("Gamepad not connected!");
     }
 
-    Serial.println(activateAuto);
-
-    if(gamepad.lf310Data.btn.RBbutton) {
+    if (gamepad.lf310Data.btn.Ybutton)
+    {
         activateAuto = true;
+        lastPosition = base.getPosition();
+
     }
 
     if (activateAuto)
     {
+
         base.configControlVariables(150, 0.14, 5);
         base.setPosition(angle * 42);
 
-        if (base.getPosition() >= (angle-5) * 42 &&
-            base.getPosition() <= (angle+5) * 42 ){
-            activateAuto = false;
-        }
 
+        if (base.finishedAuto)
+        {
+            activateAuto = false;
+            base.finishedAuto = false;
+        }
     }
     else
     {

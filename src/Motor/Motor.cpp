@@ -94,6 +94,7 @@ long Motor::getPosition()
 
 void Motor::setPosition(float wantedTicks)
 {
+
   float error = wantedTicks - float(getPosition());
   // Serial.println(error);
 
@@ -102,6 +103,9 @@ void Motor::setPosition(float wantedTicks)
   // Serial.print(abs(error));
   // Serial.print("\t");
   // Serial.println(prop);
+
+  setDir(error < 0);
+
   if (abs(error) > errorThreshold)
   {
     setPower(prop);
@@ -109,6 +113,7 @@ void Motor::setPosition(float wantedTicks)
   else
   {
     setPower(0);
+    finishedAuto = true;
   }
 }
 

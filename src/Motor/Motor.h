@@ -19,6 +19,9 @@ private:
   Encoder encoder;
 
 public:
+
+  bool finishedAuto = false;
+
   Motor() : encoder(0, 1) {}
   Motor(
       int _powerPin,
