@@ -4,7 +4,7 @@ Firmware that brings an old **Scorbot robotic arm** back to life and lets you dr
 
 The arm sat unused in my high school's workshop for years, with no interface or manual, only a D-sub connector. During COVID I took it home, mapped every pin from the original datasheet, wired it to motor drivers and an Arduino Mega, and wrote this code to control it.
 
-Full story with photos and videos: **[guynoimark.com](https://guynoimark.com)**
+Full story with photos and videos: **[guynoimark.com/work/scorbot-robotics-project](https://guynoimark.com/work/scorbot-robotics-project/)**
 
 ## Hardware
 
